@@ -127,3 +127,15 @@
   border-radius: 8px;
   /* border: 1px solid hotpink; */
 }
+.menu_avatar{
+  display: flex;
+  justify-content: center;
+}
+
+.card{
+  transition: transform 0.2s;
+}
+
+.card:hover{
+  transform: scale(1.2);
+}
