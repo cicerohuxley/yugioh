@@ -21,7 +21,9 @@ const state = {
   },
   actions: {
     button: document.getElementById("next-duel")
-  }
+  },
+  reset: document.getElementById("next-duel")
+
 }
 
 
@@ -96,39 +98,39 @@ async function setCardsField(cardId) {
 
   let duelResults = await checkDuelResults(cardId, computerCardId)
 
-    await updateScore()
+  await updateScore()
   await drawButton(duelResults)
 }
 
 async function drawButton(text) {
-  state.actions.button.innerText = text;
+  state.actions.button.innerText = text.toUpperCase();
   state.actions.button.style.display = "block"
 }
 
-async function updateScore(){
+async function updateScore() {
   state.score.scoreBox.innerText = `Win: ${state.score.playerScore} | Lose: ${state.score.computerScore}`
 }
 
 
- async function checkDuelResults(playerCardId, computerCardId) {
-  let duelResults = "Empate";
+async function checkDuelResults(playerCardId, computerCardId) {
+  let duelResults = "draw";
   let playerCard = cardData[playerCardId];
 
 
-  if(playerCard.WinOf.includes(computerCardId)){
-    duelResults = "Ganhou";
+  if (playerCard.WinOf.includes(computerCardId)) {
+    duelResults = "win";
     state.score.playerScore++
   }
-  if(playerCard.LoseOf.includes(computerCardId)){
-    duelResults = "Perdeu";
+  if (playerCard.LoseOf.includes(computerCardId)) {
+    duelResults = "lose";
     state.score.computerScore++;
   }
-
+  await playAudio(duelResults)
   return duelResults;
- }
+}
 
 async function removeAllCardImages() {
-  let {computerBox, playerBox} = state.playerSides;
+  let { computerBox, playerBox } = state.playerSides;
   let imageElements = computerBox.querySelectorAll("img");
   imageElements.forEach((img) => img.remove())
 
@@ -150,12 +152,36 @@ async function drawCards(cardNumbers, fieldSide) {
   }
 }
 
+
+state.reset.addEventListener("mousedown", () => {
+
+  state.cardSprites.avatar.src = "";
+  state.actions.button.style.display = "none";
+
+
+  state.fieldCards.player.style.display = "none";
+  state.fieldCards.computer.style.display = "none";
+  init()
+})
+
+async function playAudio(status) {
+  const audio = new Audio(`./src/assets/audios/${status}.wav`)
+
+  try {
+    audio.play()
+
+  } catch (error) {
+    console.log("Audio não econtrado")
+    console.error(error)
+  }
+}
+
 function init() {
   drawCards(5, state.playerSides.player1);
   drawCards(5, state.playerSides.computer);
 }
-
-
 init()
+
+
 
 
