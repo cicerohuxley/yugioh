@@ -1,3 +1,7 @@
+body{
+  cursor: url("../assets/cursor/yugicursor.png"), default;
+}
+
 .press-start-2p-regular {
   font-family: "Press Start 2P", system-ui;
   font-weight: 400;
@@ -78,12 +82,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: .3rem;
 }
 
 .card-box{
   width: 100%;
-  height: 9rem;
+  height: 10rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -95,6 +98,7 @@
   padding-top: .1rem;
   justify-content: center;
   height: 300px;
+  border-radius: 10px;
 }
 
 .versus-top,
@@ -125,11 +129,11 @@
   height: 11rem;
   width: 8rem;
   border-radius: 8px;
-  border: 1px solid yellow;
+  border: dashed orangered;
 }
 
 .card-infield img{
-  border: 1px solid darkgoldenrod;
+  border: none
 }
 
 
@@ -141,7 +145,13 @@
 .card{
   transition: transform 0.2s;
 }
+#next-duel:hover{
+  color: green;
+  cursor: url("../assets/cursor/yamiyugicursorGLOW.png"), default;
 
+}
 .card:hover{
-  transform: scale(1.2);
+  transform: scale(1.1);
+  cursor: url("../assets/cursor/yamiyugicursorGLOW.png"), default;
+
 }
